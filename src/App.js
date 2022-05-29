@@ -1,42 +1,23 @@
 import React from "react";
-import {
-  createInstance,
-  OptimizelyProvider,
-  OptimizelyFeature,
-} from "@optimizely/react-sdk";
+import {isEnabled} from "./FeatureManagement";
+import './styles.css';
 
-const optimizely = createInstance({
-  sdkKey: "8ho1QR1cs57BtwUbu1c1T",
-});
 
 class App extends React.Component {
   render() {
     return (
-      <OptimizelyProvider
-        optimizely={optimizely}
-        user={{
-          id: "user123",
-          attributes: {
-            customerId: 123,
-            isVip: true,
-          },
-        }}
-      >
-        <h1>Feature Toggles Demo</h1>
-        <OptimizelyFeature feature="hello-world">
-          {(isEnabled) => (isEnabled ? <h2> Hello world! </h2> : <p>You don't get Hello World</p>)}
-        </OptimizelyFeature>
-
-        <OptimizelyFeature feature="goodbye-world">
-          
-          {(isEnabled) => (isEnabled ? <h2> Goodbye world! </h2> : <p>You don't get Goodbye World</p>)}
-        </OptimizelyFeature>
-
-        <OptimizelyFeature feature="howareyou-world">
-          
-          {(isEnabled) => (isEnabled ? <h2> How are you world! </h2> : <p>You don't get how are you World</p>)}
-        </OptimizelyFeature>
-      </OptimizelyProvider>
+      <div>
+        <h1 className="title">Feature Toggles Demo :)</h1> 
+        <div>
+              {(isEnabled("hello-world")) ? <h2 className="feature on" >Hello world! </h2> : <h2 className="feature off" >You don't get: Hello World!</h2>}
+        </div>
+        <div>
+              {(isEnabled("goodbye-world")) ? <h2 className="feature on" > Goodbye world! </h2> : <h2 className="feature off" >You don't get Goodbye World!</h2> }
+        </div>
+        <div>
+              {(isEnabled("howAreYou-world")) ? <h2 className="feature on" > How are you world? </h2> :<h2 className="feature off" >You don't get: How are you World?</h2> }
+        </div>
+      </div>
     );
   }
 }

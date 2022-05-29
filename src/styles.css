@@ -1,0 +1,25 @@
+.feature{
+    border-radius: 20px;
+    padding: 40px;
+    width: 75%;
+    margin: 30px auto;
+    text-align: center;
+}
+
+.on{
+    background-color: #b1dab1;
+}
+
+.off{
+    background-color: #ffb3b3;
+}
+
+.body{
+    background-color: #c0c0c0;
+}
+
+.title{
+    margin: 50px auto;
+    text-align: center;
+}
+
