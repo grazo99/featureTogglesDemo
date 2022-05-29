@@ -15,7 +15,7 @@ class App extends React.Component {
               {(isEnabled("goodbye-world")) ? <h2 className="feature off" > Goodbye world! </h2> : <h2 className="feature off" >You don't get Goodbye World!</h2> }
         </div>
         <div>
-              {(isEnabled("howAreYou-world")) ? <h2 className="feature off" > How are you world? </h2> :<h2 className="feature off" >You don't get: How are you World?</h2>) }
+              {(isEnabled("howareyou-world")) ? <h2 className="feature off" > How are you world? </h2> :<h2 className="feature off" >You don't get: How are you World?</h2> }
         </div>
       </div>
     );

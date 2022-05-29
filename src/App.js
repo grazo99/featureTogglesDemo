@@ -1,23 +1,46 @@
 import React from "react";
-import {isEnabled} from "./FeatureManagement";
+import {
+  createInstance,
+  OptimizelyProvider,
+  OptimizelyFeature,
+} from "@optimizely/react-sdk";
 import './styles.css';
+import { optimizelyC } from './toggles/development';
 
+
+const optimizely = createInstance({
+  sdkKey: optimizelyC.sdkKey,
+});
 
 class App extends React.Component {
   render() {
+    
     return (
-      <div>
-        <h1 className="title">Feature Toggles Demo :)</h1> 
-        <div>
-              {(isEnabled("hello-world")) ? <h2 className="feature on" >Hello world! </h2> : <h2 className="feature off" >You don't get: Hello World!</h2>}
-        </div>
-        <div>
-              {(isEnabled("goodbye-world")) ? <h2 className="feature on" > Goodbye world! </h2> : <h2 className="feature off" >You don't get Goodbye World!</h2> }
-        </div>
-        <div>
-              {(isEnabled("howAreYou-world")) ? <h2 className="feature on" > How are you world? </h2> :<h2 className="feature off" >You don't get: How are you World?</h2> }
-        </div>
-      </div>
+      <OptimizelyProvider
+        optimizely={optimizely}
+        user={{
+          id: "user123",
+          attributes: {
+            customerId: 123,
+            isVip: true,
+          },
+        }}
+      >
+        <h1 className="title">Feature Toggles Demo :)</h1>
+        <OptimizelyFeature feature="hello-world" >
+          {(isEnabled) => (isEnabled ? <h2 className="feature on"> Hello world! </h2> : <h2 className="feature off" >You don't get: Hello World!</h2>)}
+        </OptimizelyFeature>
+
+        <OptimizelyFeature feature="goodbye-world" >
+          
+          {(isEnabled) => (isEnabled ? <h2 className="feature on"> Goodbye world! </h2> : <h2 className="feature off" >You don't get Goodbye World!</h2>)}
+        </OptimizelyFeature>
+
+        <OptimizelyFeature feature="howareyou-world">
+          
+          {(isEnabled) => (isEnabled ? <h2 className="feature on"> How are you world? </h2> : <h2 className="feature off" >You don't get: How are you World?</h2>)}
+        </OptimizelyFeature>
+      </OptimizelyProvider>
     );
   }
 }
